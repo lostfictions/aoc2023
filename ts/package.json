@@ -1,0 +1,26 @@
+{
+  "name": "aoc2023",
+  "version": "1.0.0",
+  "description": "advent of code 2023",
+  "private": true,
+  "author": "s <https://github.com/lostfictions>",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "ts-node -T"
+  },
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "znv": "^0.4.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.2",
+    "eslint": "^8.55.0",
+    "eslint-config-lostfictions": "^6.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  }
+}
