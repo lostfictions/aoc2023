@@ -13,39 +13,29 @@ function part1(data: string) {
 
 function part2(data: string) {
   const numbers = data.split("\n").map((line) => {
+    // we need to allow overlapping matches (for example, "oneight" should yield
+    // both 1 and 8 in the results) so we use a regex with a lookahead assertion
+    // (?=...) -- but that excludes the result from the match, so we have to
+    // wrap the inside of the assertion in a capture group, ie. (?=(...))
     const digits = [
-      // we need to allow overlapping matches (for example, "oneight" should
-      // yield both 1 and 8 in the results) so we use a regex with a lookahead
-      // assertion (?=...) -- but that excludes the result from the match, so we
-      // have to wrap the inside of the assertion in a capture group, ie. (?=(...))
       ...line.matchAll(
         /(?=(\d|one|two|three|four|five|six|seven|eight|nine))/g,
       ),
     ].map((match) => {
+      // prettier-ignore
       switch (match[1]) {
-        case "one":
-          return 1;
-        case "two":
-          return 2;
-        case "three":
-          return 3;
-        case "four":
-          return 4;
-        case "five":
-          return 5;
-        case "six":
-          return 6;
-        case "seven":
-          return 7;
-        case "eight":
-          return 8;
-        case "nine":
-          return 9;
-        default:
-          return Number.parseInt(match[1]);
+        case "one": return 1;
+        case "two": return 2;
+        case "three": return 3;
+        case "four": return 4;
+        case "five": return 5;
+        case "six": return 6;
+        case "seven": return 7;
+        case "eight": return 8;
+        case "nine": return 9;
+        default: return Number.parseInt(match[1]);
       }
     });
-    console.log(digits.join(" "));
     return Number.parseInt(`${digits.at(0)}${digits.at(-1)}`);
   });
 
