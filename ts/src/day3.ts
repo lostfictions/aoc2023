@@ -16,33 +16,18 @@ function part1(lines: string[]) {
     for (const [num, [start, end]] of numberMatches[row]) {
       let touchingSymbol = false;
 
-      // console.log("testing", num);
-
-      for (
-        let j = Math.max(0, row - 1);
-        j <= Math.min(rowCount - 1, row + 1);
-        j++
-      ) {
-        for (
-          let i = Math.max(0, start - 1);
-          i <= Math.min(rowLength - 1, end);
-          i++
-        ) {
-          // console.log(j, i, lines[j][i]);
-
+      // prettier-ignore
+      for (let j = Math.max(0, row - 1); j <= Math.min(rowCount - 1, row + 1); j++) {
+        for (let i = Math.max(0, start - 1); i <= Math.min(rowLength - 1, end); i++) {
           if (/[!@#$%^&*()\-=\\/+_'"[\]:;,<>?{}|~`]/.test(lines[j][i])) {
             touchingSymbol = true;
           }
         }
       }
 
-      // console.log(touchingSymbol);
-
       if (touchingSymbol) valid.push(num);
     }
   }
-
-  // console.log(valid);
 
   return valid.reduce((p, c) => p + c, 0);
 }
@@ -62,20 +47,9 @@ function part2(lines: string[]) {
 
   for (let row = 0; row < numberMatches.length; row++) {
     for (const [num, [start, end]] of numberMatches[row]) {
-      // console.log("testing", num);
-
-      for (
-        let j = Math.max(0, row - 1);
-        j <= Math.min(rowCount - 1, row + 1);
-        j++
-      ) {
-        for (
-          let i = Math.max(0, start - 1);
-          i <= Math.min(rowLength - 1, end);
-          i++
-        ) {
-          // console.log(j, i, lines[j][i]);
-
+      // prettier-ignore
+      for (let j = Math.max(0, row - 1); j <= Math.min(rowCount - 1, row + 1); j++) {
+        for (let i = Math.max(0, start - 1); i <= Math.min(rowLength - 1, end); i++) {
           if (lines[j][i] === "*") {
             const arr = adjacencies[`${j},${i}`] ?? [];
             arr.push(num);
@@ -86,13 +60,9 @@ function part2(lines: string[]) {
     }
   }
 
-  // console.dir(adjacencies);
-
   const multiplied = Object.values(adjacencies)
     .filter((arr) => arr.length === 2)
     .map((arr) => arr[0] * arr[1]);
-
-  // console.log(multiplied);
 
   return multiplied.reduce((p, c) => p + c, 0);
 }
