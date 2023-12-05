@@ -1,24 +1,20 @@
 import { clean, load } from "./util";
 
 function parse(line: string) {
-  const [win, have] = line
+  const [winning, have] = line
     .split(/:\s+/)[1]
     .split(/\s+\|\s+/)
-    .map((leftright) => leftright.split(/\s+/).map((n) => Number.parseInt(n)));
+    .map((leftright) => leftright.split(/\s+/));
 
-  return [new Set(win), have] as const;
+  return [new Set(winning), have] as const;
 }
 
 function part1(lines: string[]) {
   return lines
     .map((l) => {
       const [winning, have] = parse(l);
-
-      return have.reduce((p, c) => {
-        if (!winning.has(c)) return p;
-        if (p === 0) return 1;
-        return p * 2;
-      }, 0);
+      const count = have.filter((n) => winning.has(n)).length;
+      return count === 0 ? 0 : 2 ** (count - 1);
     })
     .reduce((p, c) => p + c);
 }
@@ -28,7 +24,7 @@ function part2(lines: string[]) {
 
   for (const [i, l] of lines.entries()) {
     const [winning, have] = parse(l);
-    const count = have.reduce((p, c) => (winning.has(c) ? p + 1 : p), 0);
+    const count = have.filter((n) => winning.has(n)).length;
 
     for (let j = i + 1; j <= Math.min(i + count, lines.length - 1); j++) {
       multiplier[j] += multiplier[i];
